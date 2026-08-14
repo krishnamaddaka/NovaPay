@@ -6,9 +6,6 @@ on:
 jobs:
     build-deploy:
         runs-on: ubuntu-latest
-        permissions:
-          contents: read
-          packages: write
         steps: 
             - name: Checkout code
               uses: actions/checkout@v3
@@ -26,6 +23,6 @@ jobs:
                 username: ${{ secrets.DOCKER_ID }}
                 password: ${{ secrets.DOCKER_PASS }}
             - name: build docker image
-              run: docker build -t novapay:${{ github.sha }} .
+              run: docker build -t ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }} .
             - name: Push image
-              run: docker push novapay:${{ github.sha }}
+              run: docker push ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
