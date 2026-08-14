@@ -16,5 +16,13 @@ jobs:
                 java-version: '25'
             - name: Package application
               run: mvn clean package -DskipTests
+            
+            - name: login to docker hub
+              uses: docker/login-action@v2
+              with:
+                username: ${{ secrets.DOCKER_ID }}
+                password: ${{ secrets.DOCKER_PASS }}
             - name: build docker image
               run: docker build -t novapay:v1 .
+            - name: Push image
+              run: docker push myapp:${{ github.sha }}
