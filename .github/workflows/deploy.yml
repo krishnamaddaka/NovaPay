@@ -26,6 +26,6 @@ jobs:
               username: ${{ secrets.DOCKER_ID }}
               password: ${{ secrets.DOCKER_PASS }}
           - name: build docker image
-            run: docker build -t ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }} .
+            run: docker build -t ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }} ./NovaPay
           - name: Push image
             run: docker push ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
