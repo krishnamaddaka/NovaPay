@@ -25,4 +25,4 @@ jobs:
             - name: build docker image
               run: docker build -t novapay:${{ github.sha }} .
             - name: Push image
-              run: docker push myapp:${{ github.sha }}
+              run: docker push novapay:${{ github.sha }}
