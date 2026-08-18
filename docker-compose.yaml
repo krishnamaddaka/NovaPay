@@ -4,8 +4,8 @@ services:
   nova-pay:
     build:
       context: .
-      dockerfile: Dockerfil3
-    image: novapay:latest
+      dockerfile: Dockerfile
+    image: ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
     container_name: novapay
     restart: unless-stopped
     ports:
