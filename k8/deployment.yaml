@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: novapay
-          image: ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
+          image: mvp9676/novapay-nova-pay:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
