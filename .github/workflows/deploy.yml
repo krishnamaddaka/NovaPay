@@ -41,3 +41,7 @@ jobs:
           run: docker build -t ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }} .
         - name: Push image
           run: docker push ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
+        - name: Update deployment image
+          run: |
+            kubectl set image deployment/novapay-deployment \
+            novapay=${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
