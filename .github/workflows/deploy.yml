@@ -73,7 +73,7 @@ jobs:
         - name: Update deployment image
           run: |
             kubectl set image deployment/novapay-deployment \
-              novapay=${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
+              novapay=${{ secrets.DOCKER_ID }}/novapay:<commit-sha>
 
         - name: Verify rollout status
           run: |
