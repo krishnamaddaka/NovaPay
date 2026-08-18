@@ -1,7 +1,5 @@
 apiVersion: apps/v1
 kind: Deployment
-#deployment
-
 metadata:
   name: novapay-deployment
 spec:
