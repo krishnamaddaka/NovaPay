@@ -4,7 +4,8 @@ services:
   nova-pay:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfil3
+    image: novapay:latest
     container_name: novapay
     restart: unless-stopped
     ports:
