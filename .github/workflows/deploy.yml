@@ -61,3 +61,42 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
           docker push ${{ secrets.DOCKER_ID }}/novapay:latest
+  deploy:
+    runs-on: self-hosted
+    needs: docker
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check Kubernetes
+        shell: powershell
+        run: |
+          kubectl config current-context
+          kubectl get nodes
+
+      - name: Apply Kubernetes deployment
+        shell: powershell
+        run: |
+          kubectl apply -f k8/deployment.yaml
+
+      - name: Update deployment image
+        shell: powershell
+        run: |
+          kubectl set image deployment/novapay-deployment `
+            novapay=${{ secrets.DOCKER_ID }}/novapay:${{ github.sha }}
+
+      - name: Verify rollout
+        shell: powershell
+        run: |
+          kubectl rollout status deployment/novapay-deployment --timeout=180s
+
+      - name: Verify pods
+        shell: powershell
+        run: |
+          kubectl get pods -o wide
+
+      - name: Verify services
+        shell: powershell
+        run: |
+          kubectl get services
