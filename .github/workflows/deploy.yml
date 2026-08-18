@@ -100,3 +100,4 @@ jobs:
         shell: powershell
         run: |
           kubectl get services
+#hello
